@@ -27,7 +27,7 @@ def passive(domain):
     if len(etcpasswd) == 0:
         log.failure('Empty /etc/passwd')
     else:
-        log.success('Got /etc/passwd')
+        log.info('May have /etc/passwd')
         p.status('Parsing Users')
         for line in etcpasswd.split('\n'):
             try:
@@ -43,7 +43,7 @@ def passive(domain):
             shadow = shadow.read()
             if shadow.replace(" ", ""):
                 shadowFound = True
-                log.success("May have found the /etc/shadow file")
+                log.info("May have found the /etc/shadow file")
         except:
             pass
 
@@ -62,7 +62,7 @@ def passive(domain):
         log.failure('Empty config file')
     else:
     #print wp_configs
-        log.success('Got the config file!')
+        log.info('May have the config file!')
         p.status('Parsing file')
         wp_configs = wp_configs.split('\n')
         for line in wp_configs:
@@ -78,11 +78,11 @@ def passive(domain):
                             passwords.append(value)
                     break
     if len(serviceU) > 0:
-        log.success('Found a total of '+str(len(serviceU))+' service users')
+        log.info('Found a total of '+str(len(serviceU))+' service users')
 
     if len(users) > 0:
         foundUsers = True
-        log.success('Found a total of '+str(len(users))+' users with login rights!')
+        log.info('Found a total of '+str(len(users))+' users with login rights!')
         userlist = ""
         for user in users:
             userlist += user+','
@@ -97,11 +97,9 @@ def passive(domain):
         log.failure('Could not find any user')
     if len(passwords) > 0:
         foundPasswords = True
-        log.success('Found a total of '+str(len(passwords))+' passwords!')    
+        log.info('Found a total of '+str(len(passwords))+' passwords!')    
     else:
         log.failure('No password found')
-    if shadowFound:
-        log.info("You may have the shadow file. No brute-force will happen")
 
     retValue = []
     for user in users:

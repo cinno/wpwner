@@ -28,7 +28,7 @@ def main():
 
 class WPwner(object):
 	def __init__(self,url,method):
-		log.info('WPwner')
+		log.info('Preparing WPwner.......')
 		self.target = Target(url)
 		self.method = method
 		log.info('Starting attack on '+self.target.url)
@@ -48,7 +48,7 @@ class WPwner(object):
 					tupList = module.active(self.target.url)
 				for attribute,value in tupList:
 					if value:
-						log.info("Adding "+value+" to target's "+attribute)
+						log.success("Adding "+value+" to target's "+attribute)
 						if hasattr(self.target, attribute):
 							orig = getattr(self.target,attribute)
 							if value not in orig:
