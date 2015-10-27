@@ -1,5 +1,4 @@
 import urllib,urllib2
-import traceback
 from pwn import *
 from Convention import *
 
@@ -32,7 +31,6 @@ def passive(url):
 				if line.find('name="pass"') != -1:
 					retvalue.append((c.DB_Password,line.split('"')[9]))
 	except:
-		traceback.print_exc()
 		pass
 	return retvalue
 

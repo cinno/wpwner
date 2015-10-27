@@ -3,6 +3,7 @@ from pwn import *
 import sys
 import optparse
 from Target import Target
+from modules.Convention import Convention
 #from modules import *
 import modules
 
@@ -29,6 +30,7 @@ def main():
 class WPwner(object):
 	def __init__(self,url,method):
 		log.info('Preparing WPwner.......')
+		self.c = Convention()
 		self.target = Target(url)
 		self.method = method
 		log.info('Starting attack on '+self.target.url)
@@ -47,8 +49,8 @@ class WPwner(object):
 				elif self.method == "active":
 					tupList = module.active(self.target.url)
 				for attribute,value in tupList:
-					if value:
-						log.success("Adding "+value+" to target's "+attribute)
+					if value and attribute != self.c.Service_User:
+						log.success("Adding '"+value+"' to target's "+attribute)
 						if hasattr(self.target, attribute):
 							orig = getattr(self.target,attribute)
 							if value not in orig:
