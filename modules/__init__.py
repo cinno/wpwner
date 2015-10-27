@@ -1,2 +1,2 @@
 #__all__ = ["Version,RSSFPD,SR,RevSlider"]
-__all__ = ["Version","RevSlider"]
+__all__ = ["Version","SearchReplace","RevSlider"]
