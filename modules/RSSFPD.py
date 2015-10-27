@@ -1,8 +1,14 @@
 from pwn import *
 from Convention import Convention
+from Target import Target
 import urllib2
 
-def passive(url):
+def description():
+	d = "Tries to access /wp-includes/rss-functions.php to disclose the full installation path"
+	return d
+
+def passive(target):
+	url = target.url
 	c = Convention()
 	retValue = []
 	url += "/wp-includes/rss-functions.php"

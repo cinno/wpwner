@@ -1,8 +1,14 @@
 from pwn import *
 import urllib2
+from Target import Target
 from Convention import *
 
-def passive(url):
+def description():
+	d = "Tries to access readme.html and extract a version number"
+	return d
+	
+def passive(target):
+	url = target.url
 	log.info("Trying to get WordPress Version")
 	c = Convention()
 	url+="readme.html"

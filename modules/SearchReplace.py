@@ -1,8 +1,14 @@
 import urllib,urllib2
 from pwn import *
 from Convention import *
+from Target import Target
 
-def passive(url):
+def description():
+	d = "Looks if the admin used the PHP script searchreplacedb2 and forgot to delete it"
+	return d
+
+def passive(target):
+	url = target.url
 	url += "searchreplacedb2.php"
 	c = Convention()
 	html = ""

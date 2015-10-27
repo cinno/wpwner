@@ -4,6 +4,10 @@ import sys
 from datetime import datetime
 from Convention import Convention
 
+def description():
+	d = "Tries to trigger the Arbitrary File Download Vulnerability CVE-2015-1579 to download /etc/passwd and the config file wp-config.php"
+	return d
+
 def passive(domain):
     log.info('Trying CVE-2015-1579')
 
