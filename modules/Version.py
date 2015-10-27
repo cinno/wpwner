@@ -17,7 +17,7 @@ def passive(url):
 		if p != -1:
 			versionLine = line.split('\x20')
 			version = versionLine[len(versionLine)-1]
-	return ("version",version)
+	return [("version",version)]
     
 def active(url):
 	return passive(url)

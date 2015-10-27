@@ -43,17 +43,18 @@ class WPwner(object):
         		if hasattr(module, self.method):
 				(attribute,value) = ("",False)
 				if self.method == "passive":
-					(attribute,value) = module.passive(self.target.url)
+					tupList = module.passive(self.target.url)
 				elif self.method == "active":
-					(attribute, value) = module.active(self.target.url)
-				if value:
-					log.info("Adding "+value+" to target's "+attribute)
-					if hasattr(self.target, attribute):
-						orig = getattr(self.target,attribute)
-						new = orig.append(value)
-						setattr(self.target,attribute,new)
-					else:
-						setattr(self.target,attribute,[value])
+					tupList = module.active(self.target.url)
+				for attribute,value in tupList:
+					if value:
+						log.info("Adding "+value+" to target's "+attribute)
+						if hasattr(self.target, attribute):
+							orig = getattr(self.target,attribute)
+							orig.append(value)
+							setattr(self.target,attribute,orig)
+						else:
+							setattr(self.target,attribute,[value])
 			else:
 				log.failure('Problem with Module '+module_name)
 if __name__ == "__main__":
