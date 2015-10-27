@@ -51,8 +51,9 @@ class WPwner(object):
 						log.info("Adding "+value+" to target's "+attribute)
 						if hasattr(self.target, attribute):
 							orig = getattr(self.target,attribute)
-							orig.append(value)
-							setattr(self.target,attribute,orig)
+							if value not in orig:
+								orig.append(value)
+								setattr(self.target,attribute,orig)
 						else:
 							setattr(self.target,attribute,[value])
 			else:
