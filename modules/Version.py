@@ -1,8 +1,10 @@
 from pwn import *
 import urllib2
+from Convention import *
 
 def passive(url):
 	log.info("Trying to get WordPress Version")
+	c = Convention()
 	url+="readme.html"
 	version = False
 	html = ""
@@ -19,7 +21,7 @@ def passive(url):
 			version = versionLine[len(versionLine)-1]
 	if not version:
 		log.failure("Wasn't able to read "+url)
-	return [("version",version)]
+	return [(c.WP_Version,version)]
     
 def active(url):
 	return passive(url)
