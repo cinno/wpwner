@@ -4,6 +4,7 @@ def passive(url):
 	return 0
     
 def active(url):
-	passive()
+	passive(url)
+	print "werks too"
 	return 0
 

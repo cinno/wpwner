@@ -30,14 +30,22 @@ class WPwner(object):
 	def __init__(self,url,method):
 		log.info('WPwner')
 		self.target = Target(url)
+		self.method = method
 		log.info('Starting attack on '+self.target.url)
-		self.passiveAttack()
-	def passiveAttack(self):
+		if self.hostUp():
+			self.attack()
+	def hostUp(self):
+		# Verify host is online
+		return True
+	def attack(self):
     		for module_name in modules.__all__:
 			module = __import__ ("modules."+module_name, fromlist=[module_name])
-        		if hasattr(module, 'passive'):
-				module.passive(self.target.url)
+        		if hasattr(module, self.method):
+				if self.method == "passive":
+					module.passive(self.target.url)
+				elif self.method == "active":
+					module.active(self.target.url)
 			else:
-				print module_name+" no passive"
+				log.failure('Problem with Module '+module_name)
 if __name__ == "__main__":
 	main()
