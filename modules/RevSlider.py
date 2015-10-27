@@ -8,7 +8,8 @@ def description():
 	d = "Tries to trigger the Arbitrary File Download Vulnerability CVE-2015-1579 to download /etc/passwd and the config file wp-config.php"
 	return d
 
-def passive(domain):
+def passive(target):
+    domain = target.url
     log.info('Trying CVE-2015-1579')
 
     c = Convention()
@@ -104,5 +105,5 @@ def passive(domain):
         retValue = [("none",False)]
     return retValue
 
-def active(url):
-	return passive(url)
+def active(target):
+	return passive(target)
