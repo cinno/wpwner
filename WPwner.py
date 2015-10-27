@@ -41,10 +41,19 @@ class WPwner(object):
     		for module_name in modules.__all__:
 			module = __import__ ("modules."+module_name, fromlist=[module_name])
         		if hasattr(module, self.method):
+				(attribute,value) = ("",False)
 				if self.method == "passive":
-					module.passive(self.target.url)
+					(attribute,value) = module.passive(self.target.url)
 				elif self.method == "active":
-					module.active(self.target.url)
+					(attribute, value) = module.active(self.target.url)
+				if value:
+					log.info("Adding "+value+" to target's "+attribute)
+					if hasattr(self.target, attribute):
+						orig = getattr(self.target,attribute)
+						new = orig.append(value)
+						setattr(self.target,attribute,new)
+					else:
+						setattr(self.target,attribute,[value])
 			else:
 				log.failure('Problem with Module '+module_name)
 if __name__ == "__main__":

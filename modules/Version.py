@@ -1,10 +1,13 @@
+from pwn import *
 
 def passive(url):
-	print "Werks"
-	return 0
+	log.info("Trying to get WordPress Version")
+	version = "4.2.3"
+	if version:
+		return ("version",version)
+	else:
+		return ("version",False)
     
 def active(url):
-	passive(url)
-	print "werks too"
-	return 0
+	return passive(url)
 
