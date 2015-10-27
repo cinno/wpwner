@@ -88,23 +88,21 @@ def passive(domain):
             userlist += user+','
         userlist = userlist[0:len(userlist)-1]
         log.info(userlist)
+    	p.status("Prioritize wp-user")
+    	if "wp-user" in users:
+        	index = users.index("wp-user")
+        	users[index] = users[0]
+        	users[0] = "wp-user"
     else:
         log.failure('Could not find any user')
-        return 0
     if len(passwords) > 0:
         foundPasswords = True
         log.success('Found a total of '+str(len(passwords))+' passwords!')    
     else:
         log.failure('No password found')
-        return 0
     if shadowFound:
         log.info("You may have the shadow file. No brute-force will happen")
 
-    p.status("Prioritize wp-user")
-    if "wp-user" in users:
-        index = users.index("wp-user")
-        users[index] = users[0]
-        users[0] = "wp-user"
     retValue = []
     for user in users:
         retValue.append(('user',user))

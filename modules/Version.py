@@ -11,12 +11,14 @@ def passive(url):
 		html = response.read()
 		html = html.split('\n')
 	except:
-		log.failure("Wasn't able to read "+url)
+		pass
 	for line in html:
 		p = line.find('<br /> Version')
 		if p != -1:
 			versionLine = line.split('\x20')
 			version = versionLine[len(versionLine)-1]
+	if not version:
+		log.failure("Wasn't able to read "+url)
 	return [("version",version)]
     
 def active(url):
