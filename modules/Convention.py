@@ -26,6 +26,8 @@ class Convention(object):
 		self.SSH_Password = "SSH_Password"
 		# Service Users (no login shell in /etc/passwd)
 		self.Service_User = "Service_User"
+		# Full Path
+		self.Full_Path = "Full_Path"
 
 	# Unmatched Credentials
 		# List of user (in case of reused or unknown purpose)
