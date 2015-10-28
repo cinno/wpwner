@@ -29,6 +29,6 @@ def passive(target):
 		log.failure("Wasn't able to read "+url)
 	return [(c.WP_Version,version)]
     
-def active(url):
-	return passive(url)
+def active(target):
+	return passive(target)
 

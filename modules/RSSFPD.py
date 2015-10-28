@@ -29,5 +29,5 @@ def passive(target):
 		retValue = [('none',False)]
 	return retValue
 
-def active(url):
-	return passive(url)
+def active(target):
+	return passive(target)

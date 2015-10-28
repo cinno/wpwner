@@ -40,5 +40,5 @@ def passive(target):
 		pass
 	return retvalue
 
-def active(url):
-	return passive(url)
+def active(target):
+	return passive(target)
