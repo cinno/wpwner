@@ -1,8 +1,8 @@
 from pwn import *
 import urllib2
 import sys
+from core.Convention import Convention
 from datetime import datetime
-from Convention import Convention
 
 def description():
 	d = "Tries to trigger the Arbitrary File Download Vulnerability CVE-2015-1579 to download /etc/passwd and the config file wp-config.php"

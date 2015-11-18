@@ -1,6 +1,5 @@
 from pwn import *
-from Convention import Convention
-from Target import Target
+from core.Convention import Convention
 import urllib2
 
 def description():

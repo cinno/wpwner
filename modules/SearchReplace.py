@@ -1,7 +1,6 @@
 import urllib,urllib2
+from core.Convention import Convention
 from pwn import *
-from Convention import *
-from Target import Target
 
 def description():
 	d = "Looks if the admin used the PHP script searchreplacedb2 and forgot to delete it"

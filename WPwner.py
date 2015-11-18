@@ -3,7 +3,7 @@ from pwn import *
 import sys
 import optparse
 from core.Target import Target
-from modules.Convention import Convention
+from core.Convention import Convention
 import modules
 
 def main():
