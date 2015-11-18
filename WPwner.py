@@ -2,9 +2,8 @@
 from pwn import *
 import sys
 import optparse
-from Target import Target
+from core.Target import Target
 from modules.Convention import Convention
-#from modules import *
 import modules
 
 def main():
