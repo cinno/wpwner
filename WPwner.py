@@ -4,7 +4,7 @@ import sys
 import optparse
 from core.Target import Target
 from core.Convention import Convention
-import modules
+import modules.info
 
 def main():
 	parser = optparse.OptionParser("Usage: "+sys.argv[0]+" <options> -u url")
@@ -31,8 +31,8 @@ def main():
 	return 0
 
 def listModules():
-	for module_name in modules.__all__:
-		module = __import__ ("modules."+module_name, fromlist=[module_name])
+	for module_name in modules.info__all__:
+		module = __import__ ("modules.info."+module_name, fromlist=[module_name])
 		if hasattr(module,"description"):
 			print '\n'
 			d = module.description()
@@ -44,15 +44,15 @@ class WPwner(object):
 		self.c = Convention()
 		self.target = Target(url)
 		self.method = method
-		log.info('Starting attack on '+self.target.url)
+		log.info('Starting information gathering on '+self.target.url)
 		if self.hostUp():
-			self.attack()
+			self.info()
 	def hostUp(self):
 		# Verify host is online
 		return True
-	def attack(self):
-    		for module_name in modules.__all__:
-			module = __import__ ("modules."+module_name, fromlist=[module_name])
+	def info(self):
+    		for module_name in modules.info.__all__:
+			module = __import__ ("modules.info."+module_name, fromlist=[module_name])
         		if hasattr(module, self.method):
 				(attribute,value) = ("",False)
 				if self.method == "passive":
