@@ -31,7 +31,7 @@ def main():
 	return 0
 
 def listModules():
-	for module_name in modules.info__all__:
+	for module_name in modules.info.__all__:
 		module = __import__ ("modules.info."+module_name, fromlist=[module_name])
 		if hasattr(module,"description"):
 			print '\n'
