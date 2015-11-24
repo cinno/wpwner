@@ -1,7 +1,6 @@
 from pwn import *
+from core.Convention import Convention
 import urllib2
-from Target import Target
-from Convention import *
 
 def description():
 	d = "Tries to access readme.html and extract a version number"
