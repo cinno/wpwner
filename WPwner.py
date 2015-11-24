@@ -36,7 +36,7 @@ def listModules():
 		if hasattr(module,"description"):
 			print '\n'
 			d = module.description()
-			print module_name+'\x20'*(20-len(module_name))+d
+			print module_name+'\n'+d
 	return 0
 class WPwner(object):
 	def __init__(self,url,method):
