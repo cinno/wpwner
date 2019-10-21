@@ -1,5 +1,5 @@
 capstone==2.1
-ecdsa==0.13
+ecdsa==0.13.3
 Mako==1.0.2
 MarkupSafe==0.23
 paramiko==1.15.3
