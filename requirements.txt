@@ -2,7 +2,7 @@ capstone==2.1
 ecdsa==0.13
 Mako==1.0.2
 MarkupSafe==0.23
-paramiko==1.15.3
+paramiko==2.10.1
 prettytable==0.7.2
 psutil==3.2.2
 pwntools==2.2
